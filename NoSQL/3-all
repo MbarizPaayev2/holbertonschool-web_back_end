@@ -1,2 +1,2 @@
 // this si comment 
-show collections
+db.school.find()
