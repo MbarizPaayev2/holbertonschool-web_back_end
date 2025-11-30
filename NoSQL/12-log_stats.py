@@ -1,28 +1,22 @@
 #!/usr/bin/env python3
-"""this is docstring"""
-
+""" MongoDB Nginx log statistikası """
 from pymongo import MongoClient
 
-def main():
-    """this is docstring"""
-    # Connect to MongoDB server
-    client = MongoClient('mongodb://127.0.0.1:27017')
-    collection =client.logs.nginx
+def log_stats():
+    """MongoDB-dəki Nginx logları haqqında statistik məlumatları çap edir"""
+    client = MongoClient("mongodb://127.0.0.1:27017")
+    collection = client.logs.nginx
 
-    # Total number of logs
     total_logs = collection.count_documents({})
-    print("{} logs".format(total_logs))
+    print(f"{total_logs} logs")
 
-    # Number of logs per HTTP method
     print("Methods:")
     for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
         count = collection.count_documents({"method": method})
-        print("\t{}: {}".format(method, count))
+        print(f"\tmethod {method}: {count}")
 
-    # Number of GET requests to /status
     status_count = collection.count_documents({"method": "GET", "path": "/status"})
-    print("{} GET /status requests".format(status_count))
+    print(f"{status_count} status check")
 
 if __name__ == "__main__":
-    """this is docstring"""
-    main()
+    log_stats()
