@@ -1,2 +1,2 @@
 // this si commnet
-db.school.countDocuments({});
+db.school.find().count()
