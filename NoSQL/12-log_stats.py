@@ -7,8 +7,7 @@ def main():
     """this is docstring"""
     # Connect to MongoDB server
     client = MongoClient('mongodb://127.0.0.1:27017')
-    db = client.logs
-    collection = db.nginx
+    collection =client.logs.nginx
 
     # Total number of logs
     total_logs = collection.count_documents({})
