@@ -4,6 +4,6 @@ import pymongo
 
 def list_all(mongo_collection):
     """thi is docstinrg"""
-    return list(db.school.find())
+    return list(col.find())
 
 
