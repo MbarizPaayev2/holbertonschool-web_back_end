@@ -1,15 +1,29 @@
 #!/usr/bin/env python3
 """this is docstring"""
-import pymongo
 
-client = MongoClient('mongodb://127.0.0.1:27017')  
-dbs = logs
-collection = nginx 
-total_logs = collection.count_documents({})
-print("{}".format(total_logs))
+from pymongo import MongoClient
 
-for i in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
-    collection.count_documents({"method": i})
-    print("{}:{}".format(Method, i))
-status_check = collection.count_documents({"method": "GET", "path": "/status"})
-print("{}".format(status_check))
+def main():
+    """this is docstring"""
+    # Connect to MongoDB server
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    db = client.logs
+    collection = db.nginx
+
+    # Total number of logs
+    total_logs = collection.count_documents({})
+    print("{} logs".format(total_logs))
+
+    # Number of logs per HTTP method
+    print("Methods:")
+    for method in ["GET", "POST", "PUT", "PATCH", "DELETE"]:
+        count = collection.count_documents({"method": method})
+        print("\t{}: {}".format(method, count))
+
+    # Number of GET requests to /status
+    status_count = collection.count_documents({"method": "GET", "path": "/status"})
+    print("{} GET /status requests".format(status_count))
+
+if __name__ == "__main__":
+    """this is docstring"""
+    main()
